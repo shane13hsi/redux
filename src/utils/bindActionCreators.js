@@ -1,4 +1,4 @@
-import mapValues from '../utils/mapValues';
+import mapValues from 'lodash/object/mapValues';
 
 function bindActionCreator(actionCreator, dispatch) {
   return (...args) => dispatch(actionCreator(...args));
@@ -38,6 +38,6 @@ export default function bindActionCreators(actionCreators, dispatch) {
   }
 
   return mapValues(actionCreators, actionCreator =>
-    bindActionCreator(actionCreator, dispatch)
+      bindActionCreator(actionCreator, dispatch)
   );
 }

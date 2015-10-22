@@ -1,7 +1,7 @@
 import { ActionTypes } from '../createStore';
-import isPlainObject from '../utils/isPlainObject';
-import mapValues from '../utils/mapValues';
-import pick from '../utils/pick';
+import isPlainObject from 'lodash/lang/isPlainObject';
+import mapValues from 'lodash/object/mapValues';
+import pick from 'lodash/object/pick';
 
 /* eslint-disable no-console */
 
@@ -38,7 +38,7 @@ function getUnexpectedStateKeyWarningMessage(inputState, outputState, action) {
   }
 
   var unexpectedKeys = Object.keys(inputState).filter(
-    key => reducerKeys.indexOf(key) < 0
+      key => reducerKeys.indexOf(key) < 0
   );
 
   if (unexpectedKeys.length > 0) {
@@ -108,7 +108,7 @@ export default function combineReducers(reducers) {
 
   var defaultState = mapValues(finalReducers, () => undefined);
 
-  return function combination(state = defaultState, action) {
+  return function combination(state = defaultState, action = {}) {
     if (sanityError) {
       throw sanityError;
     }
