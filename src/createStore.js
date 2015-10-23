@@ -99,6 +99,9 @@ export default function createStore(reducer, initialState) {
       );
     }
 
+    /**
+     * TODO: can force to apply FSA
+     * */
     if (typeof action.type === 'undefined') {
       throw new Error(
         'Actions may not have an undefined "type" property. ' +
