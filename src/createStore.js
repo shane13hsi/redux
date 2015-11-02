@@ -8,7 +8,7 @@ import isPlainObject from 'lodash/lang/isPlainObject';
  */
 export var ActionTypes = {
   INIT: '@@redux/INIT'
-};
+}
 
 /**
  * Creates a Redux store that holds the state tree.
@@ -32,13 +32,13 @@ export var ActionTypes = {
  */
 export default function createStore(reducer, initialState) {
   if (typeof reducer !== 'function') {
-    throw new Error('Expected the reducer to be a function.');
+    throw new Error('Expected the reducer to be a function.')
   }
 
-  var currentReducer = reducer;
-  var currentState = initialState;
-  var listeners = [];
-  var isDispatching = false;
+  var currentReducer = reducer
+  var currentState = initialState
+  var listeners = []
+  var isDispatching = false
 
   /**
    * Reads the state tree managed by the store.
@@ -46,7 +46,7 @@ export default function createStore(reducer, initialState) {
    * @returns {any} The current state tree of your application.
    */
   function getState() {
-    return currentState;
+    return currentState
   }
 
   /**
@@ -58,12 +58,18 @@ export default function createStore(reducer, initialState) {
    * @returns {Function} A function to remove this change listener.
    */
   function subscribe(listener) {
-    listeners.push(listener);
+    listeners.push(listener)
+    var isSubscribed = true
 
     return function unsubscribe() {
-      var index = listeners.indexOf(listener);
-      listeners.splice(index, 1);
-    };
+      if (!isSubscribed) {
+        return
+      }
+
+      isSubscribed = false
+      var index = listeners.indexOf(listener)
+      listeners.splice(index, 1)
+    }
   }
 
   /**
@@ -96,7 +102,7 @@ export default function createStore(reducer, initialState) {
       throw new Error(
         'Actions must be plain objects. ' +
         'Use custom middleware for async actions.'
-      );
+      )
     }
 
     /**
@@ -106,22 +112,22 @@ export default function createStore(reducer, initialState) {
       throw new Error(
         'Actions may not have an undefined "type" property. ' +
         'Have you misspelled a constant?'
-      );
+      )
     }
 
     if (isDispatching) {
-      throw new Error('Reducers may not dispatch actions.');
+      throw new Error('Reducers may not dispatch actions.')
     }
 
     try {
-      isDispatching = true;
-      currentState = currentReducer(currentState, action);
+      isDispatching = true
+      currentState = currentReducer(currentState, action)
     } finally {
-      isDispatching = false;
+      isDispatching = false
     }
 
-    listeners.slice().forEach(listener => listener());
-    return action;
+    listeners.slice().forEach(listener => listener())
+    return action
   }
 
   /**
@@ -135,19 +141,19 @@ export default function createStore(reducer, initialState) {
    * @returns {void}
    */
   function replaceReducer(nextReducer) {
-    currentReducer = nextReducer;
-    dispatch({ type: ActionTypes.INIT });
+    currentReducer = nextReducer
+    dispatch({ type: ActionTypes.INIT })
   }
 
   // When a store is created, an "INIT" action is dispatched so that every
   // reducer returns their initial state. This effectively populates
   // the initial state tree.
-  dispatch({ type: ActionTypes.INIT });
+  dispatch({ type: ActionTypes.INIT })
 
   return {
     dispatch,
     subscribe,
     getState,
     replaceReducer
-  };
+  }
 }

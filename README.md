@@ -32,7 +32,7 @@ I wrote Redux while working on my React Europe talk called [“Hot Reloading wit
 ### Influences
 
 Redux evolves the ideas of [Flux](https://facebook.github.io/flux), but avoids its complexity by taking cues from [Elm](https://github.com/evancz/elm-architecture-tutorial/).  
-Whether you have used them or not, Redux takes a few minutes to get started with.
+Whether you have used them or not, Redux only takes a few minutes to get started with.
 
 ### Installation
 
@@ -62,7 +62,7 @@ To specify how the actions transform the state tree, you write pure *reducers*.
 That’s it!
 
 ```js
-import { createStore } from 'redux';
+import { createStore } from 'redux'
 
 /**
  * This is a reducer, a pure function with (state, action) => state signature.
@@ -78,30 +78,30 @@ import { createStore } from 'redux';
 function counter(state = 0, action) {
   switch (action.type) {
   case 'INCREMENT':
-    return state + 1;
+    return state + 1
   case 'DECREMENT':
-    return state - 1;
+    return state - 1
   default:
-    return state;
+    return state
   }
 }
 
 // Create a Redux store holding the state of your app.
 // Its API is { subscribe, dispatch, getState }.
-let store = createStore(counter);
+let store = createStore(counter)
 
 // You can subscribe to the updates manually, or use bindings to your view layer.
 store.subscribe(() =>
   console.log(store.getState())
-);
+)
 
 // The only way to mutate the internal state is to dispatch an action.
 // The actions can be serialized, logged or stored and later replayed.
-store.dispatch({ type: 'INCREMENT' });
+store.dispatch({ type: 'INCREMENT' })
 // 1
-store.dispatch({ type: 'INCREMENT' });
+store.dispatch({ type: 'INCREMENT' })
 // 2
-store.dispatch({ type: 'DECREMENT' });
+store.dispatch({ type: 'DECREMENT' })
 // 1
 ```
 
@@ -131,6 +131,7 @@ For PDF, ePub, and MOBI exports for offline reading, and instructions on how to 
 * [Async](http://rackt.github.io/redux/docs/introduction/Examples.html#async) ([source](https://github.com/rackt/redux/tree/master/examples/async))
 * [Universal](http://rackt.github.io/redux/docs/introduction/Examples.html#universal) ([source](https://github.com/rackt/redux/tree/master/examples/universal))
 * [Real World](http://rackt.github.io/redux/docs/introduction/Examples.html#real-world) ([source](https://github.com/rackt/redux/tree/master/examples/real-world))
+* [Shopping Cart](http://rackt.github.io/redux/docs/introduction/Examples.html#shopping-cart) ([source](https://github.com/rackt/redux/tree/master/examples/shopping-cart))
 
 If you’re new to the NPM ecosystem and have troubles getting a project up and running, or aren’t sure where to paste the gist above, check out [simplest-redux-example](https://github.com/jackielii/simplest-redux-example) that uses Redux together with React and Browserify.
 
